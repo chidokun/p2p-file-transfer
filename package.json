@@ -1,6 +1,7 @@
 {
   "name": "p2p-file-transfer",
   "version": "0.1.0",
+  "homepage": "https://chidokun.github.io/p2p-file-transfer",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
@@ -24,6 +25,8 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -46,5 +49,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^5.0.0"
   }
 }
