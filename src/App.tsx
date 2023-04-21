@@ -99,7 +99,6 @@ export const App: React.FC = () => {
                             <Card>
                                 <Space direction="horizontal">
                                     <Input placeholder={"ID"}
-                                           style={{width: 250}}
                                            onChange={e => dispatch(connectionAction.changeConnectionInput(e.target.value))}/>
                                     <Button onClick={handleConnectOtherPeer}
                                             loading={connection.loading}>Connect</Button>
