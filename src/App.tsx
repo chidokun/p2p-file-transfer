@@ -42,7 +42,7 @@ export const App: React.FC = () => {
     }
 
     const handleConnectOtherPeer = () => {
-        dispatch(connectionAction.connectPeer(connection.id || ''))
+        connection.id != null ? dispatch(connectionAction.connectPeer(connection.id || "")) : message.warning("Please enter ID")
     }
 
     const [fileList, setFileList] = useAsyncState([] as UploadFile[])
@@ -99,7 +99,9 @@ export const App: React.FC = () => {
                             <Card>
                                 <Space direction="horizontal">
                                     <Input placeholder={"ID"}
-                                           onChange={e => dispatch(connectionAction.changeConnectionInput(e.target.value))}/>
+                                           onChange={e => dispatch(connectionAction.changeConnectionInput(e.target.value))}
+                                           required={true}
+                                           />
                                     <Button onClick={handleConnectOtherPeer}
                                             loading={connection.loading}>Connect</Button>
                                 </Space>
