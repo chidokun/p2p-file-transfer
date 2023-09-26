@@ -78,6 +78,7 @@ export const App: React.FC = () => {
     }
 
     return (
+        
         <Row justify={"center"} align={"top"}>
             <Col xs={24} sm={24} md={20} lg={16} xl={12}>
                 <Card>

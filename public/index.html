@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
+
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="P2P File Transfer"
-    />
+    <meta name="description" content="P2P File Transfer" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <script src="https://cdn.jsdelivr.net/npm/three@0.123/build/three.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+
+
+
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -25,10 +29,848 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>P2P File Transfer</title>
-  </head>
-  <body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel="stylesheet" href="./style.css">
+
+
+    <!-- partial:index.partial.html -->
+    <script src="https://cdn.rawgit.com/ironwallaby/delaunay/master/delaunay.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.3/p5.min.js"></script>
+    <!-- partial -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@1,200&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/three@0.123/build/three.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+
+    <script src="./logo_animation/p5.Polar.js"></script>
+    <link rel="stylesheet" type="text/css" href="./logo_animation/style.css">
+    <style>
+        html,
+        body {
+            background-color: #000000;
+            repeat: no-repeat;
+            background-size: cover;
+            overflow-x: hidden;
+            margin: 0px;
+        }
+        
+        img {
+            width: auto;
+            max-width: 100%;
+            height: auto;
+        }
+        
+        video {
+            width: auto;
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .respie {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+        }
+        
+        #sl3d {
+            margin-left: 0;
+        }
+        
+        #wrapper {
+            position: relative;
+            margin-top: 220px;
+        }
+        
+        #wrapper {
+            margin-right: auto;
+            /* 1 */
+            margin-left: auto;
+            /* 1 */
+            max-width: 1160px;
+            /* 2 */
+            padding-right: 10px;
+            /* 3 */
+            padding-left: 10px;
+            /* 3 */
+        }
+        
+        #long {
+            width: 1350px"
+
+        }
+        
+        #banner {
+            width: 1920px;
+        }
+        
+        a {
+            color: rgb(203, 41, 41);
+        }
+        
+        h2 {
+            font-family: 'Josefin Sans', sans-serif;
+            color: #fff;
+        }
+        
+        h3 {
+            font-family: 'JetBrains Mono', monospace;
+            color: #fff;
+        }
+        
+        h4 {
+            font-family: 'JetBrains Mono', monospace;
+            color: #0eb356;
+        }
+        
+        article {
+            display: block;
+            width: auto;
+        }
+        
+        body {
+            font-family: sans-serif;
+        }
+        
+        .TradeGothicLTRoman {
+            font-family: 'Trade Gothic LT W01 Roman';
+        }
+        
+        .TradeGothicLTOblique {
+            font-family: 'Trade Gothic LT W01 Oblique';
+        }
+        
+        .TradeGothicLTBold {
+            font-family: 'Trade Gothic LT W01 Bold';
+        }
+        
+        .TradeGothicLTBoldCondensed {
+            font-family: 'Trade Gothic LT W01 Bd CnNo-20';
+        }
+        
+        .respi {
+            margin-left: -10%;
+            position: absolute;
+        }
+        
+        .button {
+            display: inline-block;
+            padding: 6px 10px;
+            font-size: 15px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: rgb(188, 20, 73);
+            border: none;
+            border-radius: 6px;
+            box-shadow: 0 3px #999;
+        }
+        
+        .button:active {
+            background-color: rgb(233, 109, 181);
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+            color: white;
+        }
+        
+        .button {
+            transition-duration: 0.4s;
+            color: white;
+        }
+        
+        .form {
+            color: white;
+        }
+        
+        .button:hover {
+            background-color: rgb(177, 103, 223);
+            color: white;
+        }
+        
+        h1 {
+            text-shadow: 2px 4px #1c1b1b;
+            overflow: auto;
+            white-space: nowrap;
+            font-family: 'Josefin Sans', sans-serif;
+            color: #fff;
+            font-size: 150px;
+        }
+        
+        a {
+            color: white;
+        }
+        
+        .styledtext {
+            font-family: 'Kavivanar', cursive;
+            font-size: 90px;
+            justify: center;
+            Align-items: center;
+            color: #000000;
+        }
+        
+        header {
+            background-color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+        }
+        
+        #video_bg {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        #overlay {
+            position: fixed;
+            display: visible;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 10999;
+            cursor: pointer;
+        }
+        
+        #text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            font-size: 50px;
+            color: white;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+        }
+        
+        #age,
+        #age_no {
+            position: relative;
+            top: 70%;
+            left: 40%;
+            font-size: 50px;
+            color: rgb(70, 14, 123);
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+        }
+        
+        body,
+        html,
+        #cnvs {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background: #141e30;
+            /* fallback for old browsers */
+            background: -webkit-linear-gradient( to left, #243b55, #141e30);
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient( to left, #243b55, #141e30);
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            font-family: sans-serif;
+        }
+        
+        .modes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modes button {
+            width: 100px;
+            height: 40px;
+            margin: 0 5px;
+            color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: none;
+            border-radius: 2px;
+            font-size: 14px;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .modes button:hover {
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        #wave {
+            width: 800px;
+            height: 600px;
+        }
+        
+        #hint {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgb(8, 16, 111);
+            pointer-events: none;
+            transition: opacity 0.5s ease-in;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        html,
+        body {
+            height: 100%;
+            background-color: black;
+        }
+        
+        canvas {}
+        
+        .all_wrap {
+            display: block;
+            height: 100%;
+            width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+            margin-top: 88px;
+        }
+        
+        #area {
+            width: 800px;
+            height: 600px;
+            padding: 0x;
+            background-color: rgb(40, 40, 40);
+        }
+        
+        .controlPanel {
+            width: 812px;
+            padding: 10px;
+            height: 100px;
+            color: #FFF;
+        }
+        
+        .controlPanel p {
+            padding: 10px;
+        }
+        
+        .centerArea {
+            float: left;
+            height: 100%;
+            width: 812px;
+        }
+        
+        .leftArea {
+            width: 220px;
+            height: 90%;
+            color: #FFF;
+            border-left: 0px solid #FFF;
+            background-color: black;
+            float: left;
+            border-right: 3px solid #333;
+        }
+        
+        .leftArea h2 {
+            border-bottom: 0px solid #FFF;
+            margin-bottom: 20px;
+            padding-left: 5px;
+        }
+        
+        .value_window {
+            padding: 20px;
+            height: 472px;
+            max-height: 512px;
+            color: white;
+            display: block;
+            float: left;
+            width: 400px;
+            background-color: black;
+            border: 1px solid black;
+        }
+        
+        ul.option {
+            list-style: none;
+        }
+        
+        ul.option>li>span {
+            display: block;
+            border-left: 25px solid rgb(0, 212, 255);
+            padding-left: 15px;
+            height: 25px;
+            background-color: #0B6A8A;
+            color: #FFF;
+            cursor: pointer;
+        }
+        
+        ul.option>li:hover {
+            background-color: rgba( 122, 122, 122, 0.3);
+        }
+        
+        ul.option>li:after {
+            display: block;
+            clear: both;
+            height: 0px;
+            visibility: hidden;
+            content: ".";
+        }
+        
+        ul.option ul {
+            height: 50px;
+            /*background-color: red;*/
+        }
+        
+        ul.option ul li {
+            float: left;
+            list-style: none;
+            height: 45px;
+        }
+        
+        ul.option li p {
+            padding: 6px;
+            padding-left: 25px;
+        }
+        
+        ul.option ul li:first-child {
+            width: 180px;
+            text-align: center;
+            padding-top: 5px;
+        }
+        
+        ul.option ul li:last-child {
+            padding-top: 8px;
+            width: 80px;
+        }
+        
+        dl.option dt {
+            border-left: 25px solid rgb(0, 212, 255);
+            height: 25px;
+            padding-left: 15px;
+            background-color: #0B6A8A;
+            color: #FFF;
+        }
+        
+        dl.option dd {
+            padding-left: 25px;
+            height: 43px;
+        }
+        
+        dl.option dd:hover {}
+        
+        span#nowVal {
+            vertical-align: middle;
+            display: inline-block;
+            padding: 5px;
+            margin-left: 30px;
+            /*border: 1px solid #DDD;*/
+        }
+        
+        .option input {
+            height: 25px;
+            font-size: 18px;
+            color: #FFF;
+            text-align: right;
+            background-color: transparent;
+        }
+        
+        input[type="range"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-color: #FFF;
+            border: 0;
+            height: 2px;
+            width: 150px;
+            margin: 3px 0;
+            box-shadow: 75px 0px 0px rgb(0, 255, 50) inset;
+        }
+        
+        input[type="range"]:focus {
+            outline: none;
+        }
+        
+        footer {
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        footer p {
+            font-size: 18px;
+        }
+        
+        footer a {
+            color: #FFF;
+        }
+        
+        .rightArea {
+            border-right: 1px solid #FFF;
+            display: block;
+            float: left;
+            width: 310px;
+            height: 100%;
+            padding: 15px;
+            color: #FFF;
+        }
+        
+        .rightArea table {
+            text-align: left;
+        }
+        
+        .rightArea table td {
+            padding-left: 5px;
+        }
+    
+        .card {
+             z-index: 999;
+        }
+        #card {
+             z-index: 999;
+        }
+      
+        #root {
+            z-index:10000;
+            width:750px;
+            margin-left:10px;
+        }
+        .pCanvas {
+            position: fixed;
+            margin-left: 0px;
+            margin-top: 0px;
+            margin-bottom: 88%;
+            z-index: 99;
+        }
+        
+        .drawButton {
+            min-width: 115px;
+            -moz-box-shadow: inset 0px -3px 7px 0px #7f8587;
+            -webkit-box-shadow: inset 0px -3px 7px 0px #7f8587;
+            box-shadow: inset 0px -3px 7px 0px #7f8587;
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #00a2ff), color-stop(1, #1283e6));
+            background: -moz-linear-gradient(top, #00a2ff 5%, #1283e6 100%);
+            background: -webkit-linear-gradient(top, #00a2ff 5%, #1283e6 100%);
+            background: -o-linear-gradient(top, #00a2ff 5%, #1283e6 100%);
+            background: -ms-linear-gradient(top, #00a2ff 5%, #1283e6 100%);
+            background: linear-gradient(to bottom, #00a2ff 5%, #1283e6 100%);
+            filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#00a2ff', endColorstr='#1283e6', GradientType=0);
+            background-color: #00a2ff;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+            border: 1px solid #0b0e07;
+            display: inline-block;
+            cursor: pointer;
+            color: #ffffff;
+            font-family: arial;
+            font-size: 15px;
+            padding: 9px 23px;
+            text-decoration: none;
+            text-shadow: 0px 1px 0px #2b448c;
+        }
+        
+        .drawButton:hover {
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #1283e6), color-stop(1, #00a2ff));
+            background: -moz-linear-gradient(top, #1283e6 5%, #00a2ff 100%);
+            background: -webkit-linear-gradient(top, #1283e6 5%, #00a2ff 100%);
+            background: -o-linear-gradient(top, #1283e6 5%, #00a2ff 100%);
+            background: -ms-linear-gradient(top, #1283e6 5%, #00a2ff 100%);
+            background: linear-gradient(to bottom, #1283e6 5%, #00a2ff 100%);
+            filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#1283e6', endColorstr='#00a2ff', GradientType=0);
+            background-color: #1283e6;
+        }
+        
+        .drawButton:active {
+            position: relative;
+            top: 1px;
+        }
+        
+        #hint.gone {
+            opacity: 0;
+        }
+        
+        @import "//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.css";
+        @mixin clearfix() {
+            *zoom: 1;
+            &:before,
+            &:after {
+                content: " ";
+                display: table;
+            }
+            &:after {
+                clear: both;
+                display: block;
+                font-size: 0;
+                height: 0;
+                visibility: hidden;
+            }
+        }
+        
+        #navbar {
+            margin-left: 20%;
+        }
+        
+        #video_bg {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        header {
+            background-color: black;
+            height: 130px;
+        }
+        
+        #banner {
+            margin-left: -5%;
+        }
+        
+        .container_right {
+            flex-direction: row;
+            margin-left: 50%;
+            margin-right: 0px;
+        }
+        
+        .container_left {
+            margin-left: 0px;
+            flex-direction: row;
+            margin-right: 10%;
+        }
+        
+        @mixin media($type) {
+            @if $type==tablet {
+                /* Small devices (tablets, 768px and up) */
+                @media (min-width: 768px) and (max-width: 991px) {
+                    @content;
+                }
+            }
+            @else if $type==mediumDesktop {
+                /* Medium devices (desktops, 992px and up) */
+                @media (min-width: 992px) and (max-width: 1100px) {
+                    @content;
+                }
+            }
+            @else if $type==largeDesktop {
+                /* Large devices (large desktops, 1200px and up) */
+                @media (min-width: 1200px) {
+                    @content;
+                }
+            }
+        }
+        
+        html,
+        body {
+            background-color: black;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        h2 {
+            font-family: "Josefin Sans", sans-serif;
+            color: #fff;
+            font-size: 30px;
+            margin-left: 15%;
+        }
+        
+        #title {
+            margin-top: 10px;
+            position: relative;
+            z-index: 999;
+        }
+    </style>
+    <script>
+        var BLUE, RED;
+        var tris;
+
+        function setup() {
+            createCanvas(windowWidth, windowHeight);
+
+            BLUE = color('#1E2630');
+            RED = color('#FB3550');
+
+            initializeTriangulation();
+        }
+
+        function initializeTriangulation() {
+            tris = [];
+            var pts = [];
+            // push canvas rect points
+            pts.push(createVector(0, 0));
+            pts.push(createVector(width, 0));
+            pts.push(createVector(width, height));
+            pts.push(createVector(0, height));
+
+            // add a certain nb of pts proportionally to the size of the canvas
+            // ~~ truncates a floating point number and keeps the integer part, like floor()
+            var n = ~~(width / 300 * height / 300);
+            for (var i = 0; i < n; i++) {
+                pts.push(createVector(~~ random(width), ~~ random(height)));
+            }
+
+            // Now, let's use Delaunay.js
+            // Delaunay.triangulate expect a list of vertices (which should be a bunch of two-element arrays, representing 2D Euclidean points)
+            // and it will return you a giant array, arranged in triplets, representing triangles by indices into the passed array
+            // Array.map function let us create an Array of 2 elements arrays [ [x,y],[x,y],..] from our array of PVector [ PVector(x,y), PVector(x,y), ... ]
+            var triangulation = Delaunay.triangulate(pts.map(function(pt) {
+                return [pt.x, pt.y];
+            }));
+
+            // create Triangles object using indices returned by Delaunay.triangulate
+            for (var i = 0; i < triangulation.length; i += 3) {
+                tris.push(new Triangle(
+                    pts[triangulation[i]],
+                    pts[triangulation[i + 1]],
+                    pts[triangulation[i + 2]]
+                ));
+            }
+        }
+
+        // class for keeping triangles from 3 PVectors
+        function Triangle(_a, _b, _c) {
+            // PVectors
+            this.a = _a;
+            this.b = _b;
+            this.c = _c;
+
+            // used for fill using lerpColor
+            this.r = random(0.8);
+
+            // used for drawing lines on triangles
+            // number of lines to draw proportionnally to the triangle size
+            this.n = ~~(dist(
+                _a.x, _a.y,
+                (this.b.x + this.c.x) / 2, (this.b.y + this.c.y) / 2
+            ) / random(25, 50)) + 1;
+            // direction point for the lines
+            this.drawTo = ~~random(3);
+
+            this.draw = function() {
+                noStroke();
+                fill(lerpColor(RED, BLUE, this.r));
+
+                triangle(this.a.x, this.a.y, this.b.x, this.b.y, this.c.x, this.c.y);
+
+                switch (this.drawTo) {
+                    case 0:
+                        this.drawLines(this.a, this.b, this.c);
+                        break;
+                    case 1:
+                        this.drawLines(this.c, this.a, this.b);
+                        break;
+                    case 2:
+                        this.drawLines(this.b, this.a, this.c);
+                        break;
+                }
+
+                stroke(BLUE);
+                strokeJoin(BEVEL);
+                strokeWeight(15);
+                noFill();
+                triangle(this.a.x, this.a.y, this.b.x, this.b.y, this.c.x, this.c.y);
+            };
+
+            this.drawLines = function(from, to1, to2) {
+                var c = cos(frameCount / 360 * TWO_PI) / 2;
+
+                for (var i = 1; i <= this.n; i++) {
+                    var p1 = createVector(
+                        lerp(from.x, to1.x, (i - 1) / this.n),
+                        lerp(from.y, to1.y, (i - 1) / this.n)
+                    );
+                    var p2 = createVector(
+                        lerp(from.x, to2.x, (i - 1) / this.n),
+                        lerp(from.y, to2.y, (i - 1) / this.n)
+                    );
+                    var p3 = createVector(
+                        lerp(from.x, to2.x, (i - 0.5 + c) / this.n),
+                        lerp(from.y, to2.y, (i - 0.5 + c) / this.n)
+                    );
+                    var p4 = createVector(
+                        lerp(from.x, to1.x, (i - 0.5 + c) / this.n),
+                        lerp(from.y, to1.y, (i - 0.5 + c) / this.n)
+                    );
+
+                    // line( p1.x, p1.y, p2.x, p2.y );
+
+                    noStroke();
+                    fill(BLUE);
+                    quad(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y);
+                }
+            }
+        }
+
+        function draw() {
+            background(RED);
+
+            tris.forEach(t => t.draw());
+
+            if (frameCount % 720 == 0) initializeTriangulation();
+        }
+
+        function mousePressed() {
+            initializeTriangulation();
+        }
+
+        function windowResized() {
+            resizeCanvas(windowWidth, windowHeight);
+            initializeTriangulation();
+        }
+    </script>
+</head>
+
+<body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="box-container">
+         <div id="title" class="title-left">
+        <strong><h1>Portal</h1></strong>
+        <h2>Peer to peer file sharing</h2>
+      
+       
+    </div>
+    <div id="title" class="title=right">
+        <div id="root" width="750px"></div>
+</div>
+</div>
+    </div>
+
+
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -39,5 +881,6 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  </body>
+</body>
+
 </html>
