@@ -1,4 +1,4 @@
-import Peer, {DataConnection} from "peerjs";
+import Peer, {DataConnection, PeerErrorType, PeerError} from "peerjs";
 import {message} from "antd";
 
 export enum DataType {
@@ -63,11 +63,25 @@ export const PeerConnection = {
                 conn.on('open', function() {
                     console.log("Connect to: " + id)
                     connectionMap.set(id, conn)
+                    peer?.removeListener('error', handlePeerError)
                     resolve()
                 }).on('error', function(err) {
                     console.log(err)
+                    peer?.removeListener('error', handlePeerError)
                     reject(err)
                 })
+
+                // When the connection fails due to expiry, the error gets emmitted
+                // to the peer instead of to the connection.
+                // We need to handle this here to be able to resolve the Promise.
+                const handlePeerError = (err: PeerError<`${PeerErrorType}`>) => {
+                    if (err.type === 'peer-unavailable') {
+                        const messageSplit = err.message.split(' ')
+                        const peerId = messageSplit[messageSplit.length - 1]
+                        if (id === peerId) reject(err)
+                    }
+                }
+                peer.on('error', handlePeerError);
             }
         } catch (err) {
             reject(err)
