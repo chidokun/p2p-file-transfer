@@ -73,7 +73,7 @@ export const PeerConnection = {
 
                 // When the connection fails due to expiry, the error gets emmitted
                 // to the peer instead of to the connection.
-                // We need to handle this here to be able to resolve the Promise.
+                // We need to handle this here to be able to fulfill the Promise.
                 const handlePeerError = (err: PeerError<`${PeerErrorType}`>) => {
                     if (err.type === 'peer-unavailable') {
                         const messageSplit = err.message.split(' ')
